@@ -21,6 +21,6 @@ public class ReplyDTO {
 //    private  Long replyPASSWORD;
 
     private Long boardNUMBER;
-    private LocalDateTime regDate;
-    private LocalDateTime modDate;
+    private LocalDateTime regDATE;
+    private LocalDateTime modDATE;
 }

@@ -57,8 +57,8 @@ public class BoardController {
         rattr.addAttribute("page", requestDTO.getPage());
         rattr.addAttribute("type", requestDTO.getType());
         rattr.addAttribute("keyword", requestDTO.getKeyword());
-        rattr.addAttribute("bno", dto.getBoardNUMBER());
-        return "board/read";
+        rattr.addAttribute("boardNUMBER", dto.getBoardNUMBER());
+        return "redirect:/board/read";
     }
 }
 

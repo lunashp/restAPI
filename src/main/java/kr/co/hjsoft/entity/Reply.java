@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Reply extends BaseEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long replyNUMBER;
 
     @Column(length = 300, nullable = false)
@@ -32,7 +32,6 @@ public class Reply extends BaseEntity{
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "boardNUMBER")
     private Board board;
 
 }

@@ -24,6 +24,7 @@ public interface ReplyService {
         Reply reply = Reply.builder()
                 .replyNUMBER(replyDTO.getReplyNUMBER())
                 .replyCONTENT(replyDTO.getReplyCONTENT())
+                .boardNICKNAME(replyDTO.getBoardNICKNAME())
                 .board(borad)
                 .build();
         return reply;
@@ -35,8 +36,8 @@ public interface ReplyService {
                 .replyNUMBER(reply.getReplyNUMBER())
                 .replyCONTENT(reply.getReplyCONTENT())
                 .boardNICKNAME(reply.getBoardNICKNAME())
-                .regDate(reply.getRegDate())
-                .modDate(reply.getModDate())
+                .regDATE(reply.getRegDate())
+                .modDATE(reply.getModDate())
                 .build();
         return replyDTO;
     }
