@@ -7,7 +7,7 @@ plugins {
     id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
 }
 
-group = 'kr.co.dajsoft'
+group = 'kr.co.hjsoft'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
