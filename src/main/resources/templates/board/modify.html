@@ -8,37 +8,43 @@
     수정 불가능한 항목은 readonly 나 hidden을 이용-->
     <form action="/board/modify" method="post">
 
+      <!--      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
       <!-- 페이지 번호, 검색 항목, 검색 키워드를 숨김으로 작성  -->
       <input type="hidden" name="page" th:value="${requestDTO.page}">
       <input type="hidden" name="type" th:value="${requestDTO.type}" >
       <input type="hidden" name="keyword" th:value="${requestDTO.keyword}" >
 
       <div class="form-group">
-        <label >Bno</label>
-        <input type="text" class="form-control" name="bno" th:value="${dto.bno}" readonly >
+        <label >BoardNUMBER</label>
+        <input type="text" class="form-control" name="boardNUMBER" th:value="${dto.boardNUMBER}" readonly >
       </div>
 
       <div class="form-group">
         <label>Title</label>
-        <input type="text" class="form-control" name="title" th:value="${dto.title}" >
+        <input type="text" class="form-control" name="boardTITLE" th:value="${dto.boardTITLE}" >
       </div>
       <div class="form-group">
         <label >Content</label>
-        <textarea class="form-control" rows="5" name="content">[[${dto.content}]]</textarea>
+        <textarea class="form-control" rows="5" name="boardCONTENT">[[${dto.boardCONTENT}]]</textarea>
       </div>
       <div class="form-group">
-        <label >Writer</label>
-        <input type="text" class="form-control" name="writer" th:value="${dto.writerEmail}" readonly>
+        <label >Content</label>
+        <input type="text" class="form-control" name="memberNICKNAME" th:value="${dto.memberNICKNAME}" readonly>
       </div>
 
-      <div class="form-group">
-        <label >RegDate</label>
-        <input type="text" class="form-control" th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
-      </div>
-      <div class="form-group">
-        <label >ModDate</label>
-        <input type="text" class="form-control" th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
-      </div>
+<!--            <div class="form-group">-->
+<!--              <label >NICKNAME</label>-->
+<!--              <input type="text" class="form-control" name="memberNICKNAME" th:value="${dto.boardNICKNAME}" readonly>-->
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--              <label >RegDate</label>-->
+<!--              <input type="text" class="form-control" th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--              <label >ModDate</label>-->
+<!--              <input type="text" class="form-control" th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>-->
+<!--            </div>-->
     </form>
 
     <button type="button" class="btn btn-primary modifyBtn">수정</button>
@@ -54,7 +60,7 @@
         }
         //폼의 데이터를 이용해서 Controller 로 이동
         actionForm
-                .attr("action", "/board/remove")
+                .attr("action", "/board/board")
                 .attr("method","post");
 
         actionForm.submit();
@@ -65,9 +71,10 @@
           return ;
         }
         actionForm
-                .attr("action", "/board/modify")
-                .attr("method","post")
-                .submit();
+                .attr("action","/board/board")
+                .attr("method","post");
+
+        actionForm.submit()
       });
 
       $(".listBtn").click(function() {
@@ -86,7 +93,7 @@
 
         //목록 보기로 이동
         actionForm
-                .attr("action", "/board/list")
+                .attr("action", "/board/board")
                 .attr("method","get");
 
         actionForm.submit();

@@ -13,16 +13,15 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Data
 public class ReplyDTO {
-    private Long replyID;
+
+    private Long replyNUMBER;
     private  String memberNICKNAME;
     private  String replyCONTENT;
-    private  String replyIP;
-    private  String replySERCERET;
-    private  Long replyPASSWORD;
+
+//    private  String replySERCERET;
+//    private  Long replyPASSWORD;
 
     private Long boardNUMBER;
-    private Member member;//멤버 엔티티와 연결이 되는지 확인하지
-
     private LocalDateTime regDate;
     private LocalDateTime modDate;
 }

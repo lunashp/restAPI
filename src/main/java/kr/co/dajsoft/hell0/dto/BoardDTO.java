@@ -19,10 +19,11 @@ public class BoardDTO {
  private int boardREADCNT;
  private String boardNICKNAME;
 
- private String memberEMAIL;
-
- private LocalDateTime memberJOINDATE;
- private LocalDateTime memberLOGINDATE;
- private LocalDateTime boardWRITEDATE;
+ private String memberNICKNAME;
+ //작성된 날짜와 수정된 날짜
+ private LocalDateTime regDATE;
+ private LocalDateTime modDATE;
+ //댓글의 수 표시
+ private int replyCount;
 
 }

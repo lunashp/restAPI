@@ -5,14 +5,15 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EntityListeners;
+import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners(value = {AuditingEntityListener.class})
 @Getter
-public abstract class BaseEntity {
+public class BaseEntity {
     @CreatedDate
     @Column(name = "regdate", updatable = false)
     private LocalDateTime regDate;
@@ -20,6 +21,7 @@ public abstract class BaseEntity {
     @LastModifiedDate
     @Column(name = "moddate")
     private LocalDateTime modDate;
+
 
 //    /* 해당 엔티티를 저장하기 이전에 실행 */
 //    @PrePersist
