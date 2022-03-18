@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class ReplyDTO {
 
     private Long replyNUMBER;
-    private  String memberNICKNAME;
+    private  String boardNICKNAME;
     private  String replyCONTENT;
 
 //    private  String replySERCERET;

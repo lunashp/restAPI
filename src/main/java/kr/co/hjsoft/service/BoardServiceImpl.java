@@ -66,7 +66,7 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public void modify(BoardDTO dto) {
         Optional<Board> board =
-                boardRepository.findById((long) dto.getBoardNUMBER());
+                boardRepository.findById(dto.getBoardNUMBER());
         if(board.isPresent()){
             board.get().changeTitle(dto.getBoardTITLE());
             board.get().changeContent(dto.getBoardCONTENT());

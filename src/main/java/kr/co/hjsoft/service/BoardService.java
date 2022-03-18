@@ -26,11 +26,11 @@ public interface BoardService {
     //Board DTO를 Board Entity로 변환 해주는 메서드
     default Board dtoToEntity(BoardDTO dto){
         Member member = Member.builder()
-                .memberNICKNAME(dto.getMemberNICKNAME())
+                .memberNICKNAME(dto.getBoardNICKNAME())
                 .build();
 
         Board board = Board.builder()
-                .boardNUMBER((long) dto.getBoardNUMBER())
+                .boardNUMBER(dto.getBoardNUMBER())
                 .boardTITLE(dto.getBoardTITLE())
                 .boardCONTENT(dto.getBoardCONTENT())
                 .boardNICKNAME(dto.getBoardNICKNAME())
@@ -42,14 +42,13 @@ public interface BoardService {
                                  Member member,
                                  Long replyCount){
         BoardDTO dto = BoardDTO .builder()
-                .boardNUMBER(Math.toIntExact(board.getBoardNUMBER()))
+                .boardNUMBER(board.getBoardNUMBER())
                 .boardTITLE(board.getBoardTITLE())
                 .boardCONTENT(board.getBoardCONTENT())
                 .regDATE(board.getRegDate())
                 .modDATE(board.getModDate())
-                .memberNICKNAME(member.getMemberNICKNAME())
                 .replyCount(replyCount.intValue())
-                .boardNICKNAME(board.getBoardNICKNAME())
+                .boardNICKNAME(member.getMemberNICKNAME())
                 .build();
         return dto;
     }

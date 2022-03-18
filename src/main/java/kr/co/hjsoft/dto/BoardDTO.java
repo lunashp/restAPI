@@ -1,9 +1,6 @@
 package kr.co.hjsoft.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -11,15 +8,17 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class BoardDTO {
 
- private int boardNUMBER;
+ private Long boardNUMBER;
  private String boardTITLE;
  private String  boardCONTENT;
  private int boardREADCNT;
- private String boardNICKNAME;
 
- private String memberNICKNAME;
+ private String boardNICKNAME;
+// private String memberNICKNAME;
+
  //작성된 날짜와 수정된 날짜
  private LocalDateTime regDATE;
  private LocalDateTime modDATE;

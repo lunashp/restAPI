@@ -16,14 +16,14 @@
       <label >Content</label>
       <textarea class="form-control" rows="5" name="boardCONTENT" readonly>[[${dto.boardCONTENT}]]</textarea>
     </div>
-    <!--    <div class="form-group">-->
-    <!--      <label >Writer boardNICKNAME</label>-->
-    <!--      <input type="text" class="form-control" name="boardNICKNAME"  th:value="${dto.boardNICKNAME}" readonly>-->
-    <!--    </div>-->
-    <!--    <div class="form-group">-->
-    <!--      <label >Writer</label>-->
-    <input type="text" class="form-control" name="memberNICKNAME" th:value="${dto.memberNICKNAME}" readonly>
-    <!--    </div>-->
+        <div class="form-group">
+          <label >Writer boardNICKNAME</label>
+          <input type="text" class="form-control" name="boardNICKNAME"  th:value="${dto.boardNICKNAME}" readonly>
+        </div>
+        <div class="form-group">
+<!--          <label >Writer</label>-->
+<!--    <input type="text" class="form-control" name="memberNICKNAME" th:value="${dto.memberNICKNAME}" readonly>-->
+<!--        </div>-->
 
 
     <a th:href="@{/board/modify(boardNUMBER = ${dto.boardNUMBER}, page=${requestDTO.page}, type=${requestDTO.type}, keyword =${requestDTO.keyword})}">

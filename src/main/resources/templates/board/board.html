@@ -68,14 +68,12 @@
                     </a>
                 </th>
                 <!-- 제목 과 댓글 수 를 출력 -->
-                <td>[[${dto.boardTITLE}]]  </td>
-                <!-- 작성자 이름 과 이메일 출력 -->
-                <td>[[${dto.memberNICKNAME}]]
-                    <!--                    <small>[[${dto.memberNICKNAME}]]</small> -->
-                </td>
-                <!-- 작성일을 출력 -->
-                <!--날짜값 받아오ㅑ야돼 ,,-->
-                <!--                <td>yyyy-MM-dd</td>-->
+                <td>[[${dto.boardTITLE}]] ----------------  [<b th:text="${dto.replyCount}"></b>]</td>
+
+                <td>[[${dto.boardNICKNAME}]] </td>
+                <td>[[${#temporals.format(dto.regDATE, 'yyyy/MM/dd')}]]</td>
+
+
             </tr>
             </tbody>
         </table>

@@ -34,7 +34,7 @@ public interface ReplyService {
         ReplyDTO replyDTO = ReplyDTO.builder()
                 .replyNUMBER(reply.getReplyNUMBER())
                 .replyCONTENT(reply.getReplyCONTENT())
-                .memberNICKNAME(reply.getMemberNICKNAME())
+                .boardNICKNAME(reply.getBoardNICKNAME())
                 .regDate(reply.getRegDate())
                 .modDate(reply.getModDate())
                 .build();
