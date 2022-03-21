@@ -19,8 +19,8 @@ public class PageRequestDTO {
     private String keyword;
 
     public PageRequestDTO() {
-        page = 1;
-        size = 10;
+        this.page = 1;
+        this.size = 10;
     }
     //Pageable 객체를 생성해주는 메서드
     public Pageable getPageable(Sort sort){

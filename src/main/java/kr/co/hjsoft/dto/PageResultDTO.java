@@ -4,22 +4,27 @@ import lombok.Data;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Data
 //DTO 클래스 와 Entity 클래스를 Generic 으로 설정
 public class PageResultDTO<DTO, EN> {
+    //DTO리스트
     private List<DTO> dtoList;
-
-    private  int totalPage, start, end;
+    //홈 페이지 번호
+    private  int totalPage;
+    //현재 페이지 번호
     private  int page;
+    //목록 사이즈
     private int size;
-
+    //시작 페이지 번호, 끝 페이지 번호
+    private int  start, end;
+    //이전, 다음
     private boolean prev, next;
-
+    //페이지 번호 목록
     private List<Integer> pageList;
 
     //생성자
@@ -48,9 +53,7 @@ public class PageResultDTO<DTO, EN> {
         end = totalPage > tempEnd ? tempEnd : totalPage;
         next = totalPage > tempEnd;
 
-        pageList = new ArrayList<>();
-        for(int i = start; i<=end;i++){
-            pageList.add(i);
-        }
+        pageList = IntStream.rangeClosed(start,end).boxed().collect(Collectors.toList());
     }
 }
+

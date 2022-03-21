@@ -9,13 +9,13 @@ import java.util.List;
 public interface ReplyService {
 
     //데이터 삽입을 위한 메서드
-    public Long register(ReplyDTO replyDTO);
+    Long register(ReplyDTO replyDTO);
     //데이터 수정을 위한 메서드
-    public void modify(ReplyDTO replyDTO);
+    void modify(ReplyDTO replyDTO);
     //데이터 삭제를 위한 메서드
-    public void remove(Long rno);
+    void remove(Long replyNUMBER);
     //댓글 목록을 가져오기
-    public List<ReplyDTO> getList(Long bno);
+    List<ReplyDTO> getList(Long boardNUMBER);
 
     //ReplyDTO 를 Reply Entity로 변환해주는 메서드
     default Reply dtoToEntity(ReplyDTO replyDTO){

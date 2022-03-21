@@ -45,7 +45,6 @@ public class ReplyServiceImpl implements  ReplyService{
         result.sort(new Comparator<Reply>() {
             @Override
             public int compare(Reply o1, Reply o2) {
-
                 return o2.getModDate().compareTo(o1.getModDate());
             }
         });
@@ -53,6 +52,5 @@ public class ReplyServiceImpl implements  ReplyService{
         return result.stream()
                 .map(reply -> entityToDTO(reply))
                 .collect(Collectors.toList());
-
     }
 }

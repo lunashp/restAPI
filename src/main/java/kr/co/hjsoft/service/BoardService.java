@@ -9,12 +9,12 @@ import kr.co.hjsoft.entity.Member;
 public interface BoardService {
 
     //게시물 등록을 위한 메서드
-    public Long register(BoardDTO dto);
+     Long register(BoardDTO dto);
 
     //목록 보기 요청을 처리할 메서드
-    public PageResultDTO<BoardDTO, Object[]> getList(PageRequestDTO dto);
+     PageResultDTO<BoardDTO, Object[]> getList(PageRequestDTO dto);
     //상세 보기 요청을 처리 할 메서드
-    public BoardDTO get(Long board_number);
+    BoardDTO get(Long boardNUMBER);
 
     //이 메서드를 인터페이스에서 선언하고 클래스에서 구현해도 되고
     //클래스에 private 로 만들어서 사용해도 되는데
@@ -53,8 +53,8 @@ public interface BoardService {
         return dto;
     }
 
-    public void removeWithReplies(Long board_number);
+     void removeWithReplies(Long boardNUMBER);
 
-    public void modify(BoardDTO dto);
+     void modify(BoardDTO dto);
 
 }

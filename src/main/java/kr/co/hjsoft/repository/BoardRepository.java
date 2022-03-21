@@ -30,5 +30,4 @@ public interface BoardRepository extends JpaRepository<Board, Long>, SearchBoard
     @Query("select b, w, count(r) from Board b left join b.writer w left outer join Reply r on r.board = b where b.boardNUMBER = :boardNUMBER")
     Object getBoardByBno(@Param("boardNUMBER") Long boardNUMBER);
 
-    //Page<Object[]> searchPage(String type, String keyword, Pageable bno);
 }

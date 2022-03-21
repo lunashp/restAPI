@@ -1,20 +1,36 @@
-//package kr.co.dajsoft.hell0;
-//
-//import kr.co.dajsoft.hell0.entity.Booking;
-//import kr.co.dajsoft.hell0.repository.BookingRepository;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.context.SpringBootTest;
-//
-//@SpringBootTest
-//public class BookingTest {
-//    @Autowired
-//    private BookingRepository bookingRepository;
-//
+package kr.co.hjsoft;
+
+import kr.co.hjsoft.entity.Board;
+import kr.co.hjsoft.entity.Member;
+import kr.co.hjsoft.repository.BoardRepository;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.stream.IntStream;
+
+@SpringBootTest
+public class BookingTest {
+    @Autowired
+    private BoardRepository boardRepository;
+
 //    @Test
-//    public void insertBooking(){
-//        Booking booking = Booking.builder().booking_NAME("정효재").booking_PAYMENT("O").booking_PLACE_ADDRESS("서울시 서대문구").booking_PLACE_NAME("우리집").booking_TEAMMEMBER(11).ip("198.189").build();
-//        bookingRepository.save(booking);
-//
-//    }
-//}
+    public void insertboard(){
+        IntStream.rangeClosed(1,100).forEach(i -> {
+            Member member = Member.builder().memberNICKNAME("효재").build();
+            Board board = Board.builder()
+                    .boardTITLE("title" + i)
+                    .boardCONTENT("content" + i)
+                    .writer(member)
+                    .boardNICKNAME("효재")
+                    .build();
+
+            boardRepository.save(board);
+        });
+    }
+
+    @Test
+    public  void deleteboard(){
+        boardRepository.deleteAll();
+    }
+}

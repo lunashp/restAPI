@@ -12,6 +12,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -57,16 +58,17 @@ public class BoardServiceImpl implements BoardService{
 
     private final ReplyRepository replyRepository;
 
+    @Transactional
     @Override
     public void removeWithReplies(Long boardNUMBER) {
-        replyRepository.deleteById(boardNUMBER);
+        replyRepository.deleteByBoardNUMBER(boardNUMBER);
         boardRepository.deleteById(boardNUMBER);
     }
 
+    @Transactional
     @Override
     public void modify(BoardDTO dto) {
-        Optional<Board> board =
-                boardRepository.findById(dto.getBoardNUMBER());
+        Optional<Board> board = boardRepository.findById(dto.getBoardNUMBER());
         if(board.isPresent()){
             board.get().changeTitle(dto.getBoardTITLE());
             board.get().changeContent(dto.getBoardCONTENT());
