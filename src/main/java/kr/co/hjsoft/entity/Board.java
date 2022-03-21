@@ -13,6 +13,7 @@ import javax.persistence.*;
 public class Board extends BaseEntity{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardNUMBER;
 
     @Column(length = 100, nullable = false)
