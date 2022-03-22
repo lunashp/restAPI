@@ -8,27 +8,23 @@
     <th:block th:fragment="content">
         <h1 class="mt-4">Board Read Page</h1>
 
+<!--        <div class="form-group">-->
+<!--            <label >boardNUMBER</label>-->
+<!--            <input type="text" class="form-control" name="boardNUMBER" th:value="${dto.boardNUMBER}" readonly >-->
+<!--        </div>-->
         <div class="form-group">
-            <label >boardNUMBER</label>
-            <input type="text" class="form-control" name="boardNUMBER" th:value="${dto.boardNUMBER}" readonly >
-        </div>
-        <div class="form-group">
-            <label >Title</label>
+            <label >글 제목</label>
             <input type="text" class="form-control" name="boardTITLE" th:value="${dto.boardTITLE}" readonly >
         </div>
         <div class="form-group">
-            <label >Content</label>
+            <label >글 내용</label>
             <textarea class="form-control" rows="5" name="boardCONTENT" readonly>[[${dto.boardCONTENT}]]</textarea>
         </div>
         <div class="form-group">
-            <label >Writer boardNICKNAME</label>
+            <label >글쓴이</label>
             <input type="text" class="form-control" name="boardNICKNAME"  th:value="${dto.boardNICKNAME}" readonly>
         </div>
         <div class="form-group">
-            <!--          <label >Writer</label>-->
-            <!--    <input type="text" class="form-control" name="memberNICKNAME" th:value="${dto.memberNICKNAME}" readonly>-->
-            <!--        </div>-->
-
 
             <a th:href="@{/board/modify(boardNUMBER = ${dto.boardNUMBER}, page=${requestDTO.page}, type=${requestDTO.type}, keyword =${requestDTO.keyword})}">
                 <button type="button" class="btn btn-primary">수정</button>
@@ -115,9 +111,8 @@
                         $.each(arr, function(idx, reply){
                             console.log(reply);
                             //댓글 번호를 replyNUMBER로 저장하고 출력
-                            str += '<div class="card-body" data-replyNUMBER="' +
-                                reply.replyNUMBER + '"><b>' +
-                                reply.replyNUMBER + '</b>';
+                            str += '<div class="card-body" data-replyNUMBER="' + reply.replyNUMBER + '">';
+                                // '<b>' + reply.replyNUMBER + '</b>';
                             //댓글 내용 출력
                             str += '<h5 class="card-title">' + reply.replyCONTENT + "</h5>";
                             //작성자 출력
@@ -186,7 +181,8 @@
                         success:function(data){
                             //넘어온 댓글 번호 저장
                             var newRNUM = parseInt(data);
-                            alert(newRNUM + " 댓글 삽입");
+                            // alert(newRNUM + " 댓글 삽입");
+                            alert("댓글 삽입");
                             //대화상자 닫기
                             modal.modal('hide');
                             //댓글 다시 출력

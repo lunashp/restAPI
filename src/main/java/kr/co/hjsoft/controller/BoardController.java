@@ -3,6 +3,7 @@ package kr.co.hjsoft.controller;
 
 import kr.co.hjsoft.dto.BoardDTO;
 import kr.co.hjsoft.dto.PageRequestDTO;
+import kr.co.hjsoft.repository.BoardRepository;
 import kr.co.hjsoft.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -21,7 +22,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/board/")
 public class BoardController {
     private final BoardService boardService;
-
     @GetMapping ("register")
     public void register(){
 
