@@ -31,6 +31,7 @@ public class Board extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     private Member writer;
 
+    //title을 수정하는 메서드
     public void changeTitle(String title){
         this.boardTITLE = title;
     }

@@ -1,6 +1,6 @@
 package kr.co.hjsoft.config;
 
-import kr.co.hjsoft.service.MemberService;
+import kr.co.hjsoft.service.MemberServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +18,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private MemberService memberService;
+    private MemberServiceImpl memberService;
 
 
     @Bean

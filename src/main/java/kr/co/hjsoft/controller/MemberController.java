@@ -1,13 +1,17 @@
 package kr.co.hjsoft.controller;
 
+import kr.co.hjsoft.dto.BoardDTO;
 import kr.co.hjsoft.dto.MemberDTO;
-import kr.co.hjsoft.service.MemberService;
+import kr.co.hjsoft.dto.PageRequestDTO;
+import kr.co.hjsoft.service.MemberServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.Map;
@@ -15,7 +19,7 @@ import java.util.Map;
 @Controller
 @AllArgsConstructor
 public class MemberController {
-    private MemberService memberService;
+    private MemberServiceImpl memberService;
 
     @GetMapping("/login/signup")
     public String dispSignup(MemberDTO memberdto) {
@@ -79,9 +83,17 @@ public class MemberController {
 
     // 정보 수정 페이지
     @GetMapping("/login/modify")
-    public String Modify() {
+    public String modify() {
         return "/login/modify";
     }
+
+    @PostMapping("modify")
+    public String modify(MemberDTO memberdto, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, RedirectAttributes rattr){
+        memberService.modify(memberdto);
+        rattr.addAttribute("memberNICKNAME", memberdto.getMemberNICKNAME());
+        return "redirect:/login/myinfo";
+    }
+
 
     // 회원 탈퇴 페이지
     @GetMapping("/login/delete")

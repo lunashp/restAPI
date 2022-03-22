@@ -11,6 +11,8 @@ import java.io.Serializable;
 @ToString
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class MemberDTO implements Serializable {
 
     @NotBlank(message = "비밀번호는 필수 입력 값입니다.")
@@ -44,16 +46,17 @@ public class MemberDTO implements Serializable {
                 .memberPW(memberPW)
                 .build();
     }
-//
-    @Builder
-    public MemberDTO(String memberADDRESS, String memberEMAIL, String memberGENDER, String memberNAME, String memberNICKNAME, String memberPHONE, String memberPW) {
-        this.memberADDRESS = memberADDRESS;
-        this.memberEMAIL = memberEMAIL;
-        this.memberGENDER = memberGENDER;
-        this.memberNAME = memberNAME;
-        this.memberNICKNAME = memberNICKNAME;
-        this.memberPHONE = memberPHONE;
-        this.memberPW = memberPW;
-
-    }
 }
+//
+//    @Builder
+//    public MemberDTO(String memberADDRESS, String memberEMAIL, String memberGENDER, String memberNAME, String memberNICKNAME, String memberPHONE, String memberPW) {
+//        this.memberADDRESS = memberADDRESS;
+//        this.memberEMAIL = memberEMAIL;
+//        this.memberGENDER = memberGENDER;
+//        this.memberNAME = memberNAME;
+//        this.memberNICKNAME = memberNICKNAME;
+//        this.memberPHONE = memberPHONE;
+//        this.memberPW = memberPW;
+//
+//    }
+//}
