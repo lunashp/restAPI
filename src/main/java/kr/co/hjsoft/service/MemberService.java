@@ -11,9 +11,10 @@ public interface MemberService {
     //데이터 수정을 위한 메소드
     void modify(MemberDTO memberdto);
     //데이터 삭제를 위한 메소드
-//    void remove(MemberDTO memberdto);
-//
-//    //MemberDTO 를 Reply Entity로 변환해주는 메서드
+    void delete(String memberEMAIL);
+
+
+    //MemberDTO 를 Reply Entity로 변환해주는 메서드
 //    default Member dtoToEntity(MemberDTO memberdto){
 //        Member member = Member.builder()
 //                .memberNICKNAME(memberdto.getMemberNICKNAME())
@@ -40,5 +41,4 @@ public interface MemberService {
 //                .build();
 //        return memberdto;
 //    }
-//}
 }

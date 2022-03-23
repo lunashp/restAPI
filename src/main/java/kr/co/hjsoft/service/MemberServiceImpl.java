@@ -22,7 +22,7 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 
-public  class MemberServiceImpl implements UserDetailsService, MemberService{
+public class MemberServiceImpl implements UserDetailsService, MemberService{
 
     private final MemberRepository memberRepository;
 
@@ -65,14 +65,13 @@ public  class MemberServiceImpl implements UserDetailsService, MemberService{
 
 
 
-
     @Transactional
     @Override
     public void modify(MemberDTO memberdto)  {
+        System.out.println(memberdto);
         Optional<Member> member = memberRepository.findBymemberEMAIL(memberdto.getMemberEMAIL());
         if (member.isPresent()) {
             member.get().changeName(memberdto.getMemberNAME());
-            member.get().changeEmail(memberdto.getMemberEMAIL());
             member.get().changePw(memberdto.getMemberPW());
             member.get().changeGender(memberdto.getMemberGENDER());
             member.get().changePhone(memberdto.getMemberPHONE());
@@ -81,6 +80,13 @@ public  class MemberServiceImpl implements UserDetailsService, MemberService{
             memberRepository.save(member.get());
         }
     }
+
+    @Transactional
+    @Override
+    public void delete(String memberEMAIL) {
+        memberRepository.deleteBymemberEMAIL(memberEMAIL);
+    }
+
 }
 
 

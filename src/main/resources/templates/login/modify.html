@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:sec="" xmlns:th="http://www.w3.org/1999/xhtml">
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
     <th:block th:fragment="content">
         <h1 class="mt-4">Member Modify Page</h1>
@@ -13,14 +14,16 @@
             <!--            <input type="hidden" name="type" th:value="${requestDTO.type}" >-->
             <!--            <input type="hidden" name="keyword" th:value="${requestDTO.keyword}" >-->
 
+<!--            <span sec:authentication="name"></span>님 환영합니다~-->
+
             <div class="form-group">
                 <label >memberNICKNAME</label>
-                <input type="text" class="form-control" name="memberNICKNAME" th:value="${memberdto?.memberNICKNAME}" readonly >
+                <input type="text" class="form-control" name="memberNICKNAME"  sec:authentication="memberNICKNAME"  readonly >
             </div>
 
             <div class="form-group">
                 <label>memberEMAIL</label>
-                <input type="email" class="form-control" name="memberEMAIL" th:value="${memberdto?.memberEMAIL}" placeholder="수정할 이메일을 입력해주세요">
+                <input type="email" class="form-control" name="memberEMAIL" th:value="${memberdto?.memberEMAIL}" readonly >
             </div>
 
             <div class="form-group">
@@ -48,16 +51,11 @@
                 <input type="password" class="form-control" name="memberPW" th:value="${memberdto?.memberPW}" placeholder="수정할 비밀번호를 입력해주세요">
             </div>
 
-            <div class="form-group">
-                <label >ModDate</label>
-                <input type="text" class="form-control" th:value="${#temporals.format(memberdto?.modDATE, 'yyyy/MM/dd HH:mm:ss')}" readonly>
-            </div>
-
         </form>
 
         <button type="button" class="btn btn-primary modifyBtn">수정</button>
         <button type="button" class="btn btn-info listBtn">목록</button>
-        <button type="button" class="btn btn-danger removeBtn">삭제</button>
+        <button type="button" class="btn btn-danger removeBtn">탈퇴</button>
 
         <script th:inline="javascript">
             var actionForm = $("form");
@@ -72,14 +70,33 @@
                 actionForm.submit()
             });
 
+
+
+
             $(".listBtn").click(function() {
+
+                //form 의 모든 내용을 삭제
+                actionForm.empty(); //form 태그의 모든 내용을 지우고
+
             //목록 보기로 이동
             actionForm
-                .attr("action", "/login/myinfo")
+                .attr("action", "/login/info")
                 .attr("method","get");
 
             actionForm.submit();
             })
+
+            $(".removeBtn").click(function(){
+                if(!confirm("정말로 탈퇴 하시겠습니까?")){
+                    return ;
+                }
+                //폼의 데이터를 이용해서 Controller 로 이동
+                actionForm
+                    .attr("action", "/login/delete")
+                    .attr("method","post");
+
+                actionForm.submit();
+            });
 
 
         </script>

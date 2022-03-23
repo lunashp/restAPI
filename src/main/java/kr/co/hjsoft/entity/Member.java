@@ -45,7 +45,6 @@ public class Member extends BaseEntity {
 
     //수정 메소드
     public void changeName(String name){this.memberNAME = name;}
-    public void changeEmail(String email){this.memberEMAIL = email;}
     public void changePw(String pw){this.memberPW = pw;}
     public void changeGender(String gender){this.memberGENDER = gender;}
     public void changePhone(String phone){this.memberPHONE = phone;}

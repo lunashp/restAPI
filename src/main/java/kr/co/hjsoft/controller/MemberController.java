@@ -3,9 +3,12 @@ package kr.co.hjsoft.controller;
 import kr.co.hjsoft.dto.BoardDTO;
 import kr.co.hjsoft.dto.MemberDTO;
 import kr.co.hjsoft.dto.PageRequestDTO;
+import kr.co.hjsoft.entity.Member;
+import kr.co.hjsoft.repository.MemberRepository;
 import kr.co.hjsoft.service.MemberService;
 import kr.co.hjsoft.service.MemberServiceImpl;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -16,12 +19,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
+//@RequiredArgsConstructor
 public class MemberController {
     private MemberServiceImpl memberService;
-    private MemberService memberservice2;
+    private final MemberService memberservice2;
+    private MemberRepository memberRepository;
 
     @GetMapping("/login/signup")
     public String dispSignup(MemberDTO memberdto) {
@@ -93,16 +99,22 @@ public class MemberController {
 //    }
 
     // 정보 수정 페이지
+//    @GetMapping("/login/modify")
+//        public void modify(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, String memberEMAIL, Model model){
+//        Optional<Member> memberWrapper = memberRepository.findBymemberEMAIL(memberEMAIL);
+//        System.out.println(memberWrapper.toString());
+//        Member member = memberWrapper.get();
+//        model.addAttribute("memberdto", member);
+//    }
     @GetMapping("/login/modify")
-    public String modify() {
+    public String modify(){
         return "/login/modify";
     }
-
     @PostMapping("/login/modify")
     public String modify(MemberDTO memberdto, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, RedirectAttributes rattr){
         memberservice2.modify(memberdto);
-        rattr.addAttribute("memberNICKNAME", memberdto.getMemberNICKNAME());
-        return "redirect:/login/myinfo";
+        rattr.addAttribute("memberEAMIL", memberdto.getMemberEMAIL());
+        return "redirect:/login/info";
     }
 
 
@@ -110,5 +122,13 @@ public class MemberController {
     @GetMapping("/login/delete")
     public String dispDelete() {
         return "/login/delete";
+    }
+
+    @PostMapping("/login/delete")
+    public String remove(String memberEMAIL, RedirectAttributes rattr){
+        memberservice2.delete(memberEMAIL);
+        //출력할 메시지 저장
+        rattr.addFlashAttribute("msg",memberEMAIL + "탈퇴");
+        return "redirect:/login/delete";
     }
 }
