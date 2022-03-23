@@ -25,7 +25,7 @@ public class HomeController {
     }
     @GetMapping("board/member")
     public String member(){
-        return "/board/member";
+        return "/login/myinfo";
     }
     @GetMapping("board/board")
     public String board(PageRequestDTO pageRequestDTO, Model model){

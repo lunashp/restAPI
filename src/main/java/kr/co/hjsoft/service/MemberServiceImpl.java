@@ -4,7 +4,7 @@ import kr.co.hjsoft.dto.MemberDTO;
 import kr.co.hjsoft.entity.Member;
 import kr.co.hjsoft.repository.MemberRepository;
 import kr.co.hjsoft.role.Role;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -20,10 +20,11 @@ import org.springframework.validation.FieldError;
 import java.util.*;
 
 @Service
-@AllArgsConstructor
-//@RequiredArgsConstructor
-public class MemberServiceImpl implements UserDetailsService {
-    private MemberRepository memberRepository;
+@RequiredArgsConstructor
+
+public  class MemberServiceImpl implements UserDetailsService, MemberService{
+
+    private final MemberRepository memberRepository;
 
     //회원가입 시, 유효성 체크
     @Transactional(readOnly = true)
@@ -62,9 +63,12 @@ public class MemberServiceImpl implements UserDetailsService {
         return new User(member.getMemberEMAIL(), member.getMemberPW(), authorities);
     }
 
+
+
+
     @Transactional
-    //@Override
-    public void modify(MemberDTO memberdto) {
+    @Override
+    public void modify(MemberDTO memberdto)  {
         Optional<Member> member = memberRepository.findBymemberEMAIL(memberdto.getMemberEMAIL());
         if (member.isPresent()) {
             member.get().changeName(memberdto.getMemberNAME());

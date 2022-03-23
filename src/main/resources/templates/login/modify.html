@@ -6,7 +6,7 @@
         <!-- 수정 폼
         수정 가능한 항목은 readonly 를 적용하지 않고 출력하고
         수정 불가능한 항목은 readonly 나 hidden을 이용-->
-        <form action="/login/modify" method="post" modelAttribute="memberdto">
+        <form th:action="@{/login/modify}" method="post" modelAttribute="memberdto">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
             <!-- 페이지 번호, 검색 항목, 검색 키워드를 숨김으로 작성  -->
             <!--            <input type="hidden" name="page" th:value="${requestDTO.page}">-->
@@ -15,42 +15,42 @@
 
             <div class="form-group">
                 <label >memberNICKNAME</label>
-                <input type="text" class="form-control" name="memberNICKNAME" th:value="${dto.memberNICKNAME}" readonly >
+                <input type="text" class="form-control" name="memberNICKNAME" th:value="${memberdto?.memberNICKNAME}" readonly >
             </div>
 
             <div class="form-group">
                 <label>memberEMAIL</label>
-                <input type="email" class="form-control" name="memberEMAIL" th:value="${dto.memberEMAIL}" placeholder="수정할 이메일을 입력해주세요">
+                <input type="email" class="form-control" name="memberEMAIL" th:value="${memberdto?.memberEMAIL}" placeholder="수정할 이메일을 입력해주세요">
             </div>
 
             <div class="form-group">
                 <label>memberNAME</label>
-                <input type="text" class="form-control" name="memberNAME" th:value="${dto.memberNAME}" placeholder="수정할 이름을 입력해주세요">
+                <input type="text" class="form-control" name="memberNAME" th:value="${memberdto?.memberNAME}" placeholder="수정할 이름을 입력해주세요">
             </div>
 
             <div class="form-group">
                 <label>memberGENDER</label>
-                <input type="text" class="form-control" name="memberGENDER" th:value="${dto.memberGENDER}" placeholder="수정할 성별을 입력해주세요">
+                <input type="text" class="form-control" name="memberGENDER" th:value="${memberdto?.memberGENDER}" placeholder="수정할 성별을 입력해주세요">
             </div>
 
             <div class="form-group">
                 <label>memberPHONE</label>
-                <input type="text" class="form-control" name="memberPHONE" th:value="${dto.memberPHONE}" placeholder="수정할 전화번호를 입력해주세요">
+                <input type="text" class="form-control" name="memberPHONE" th:value="${memberdto?.memberPHONE}" placeholder="수정할 전화번호를 입력해주세요">
             </div>
 
             <div class="form-group">
                 <label>memberADDRESS</label>
-                <input type="text" class="form-control" name="memberADDRESS" th:value="${dto.memberADDRESS}" placeholder="수정할 주소를 입력해주세요">
+                <input type="text" class="form-control" name="memberADDRESS" th:value="${memberdto?.memberADDRESS}" placeholder="수정할 주소를 입력해주세요">
             </div>
 
             <div class="form-group">
                 <label>memberPW</label>
-                <input type="password" class="form-control" name="memberPW" th:value="${dto.memberPW}" placeholder="수정할 비밀번호를 입력해주세요">
+                <input type="password" class="form-control" name="memberPW" th:value="${memberdto?.memberPW}" placeholder="수정할 비밀번호를 입력해주세요">
             </div>
 
             <div class="form-group">
                 <label >ModDate</label>
-                <input type="text" class="form-control" th:value="${#temporals.format(dto.modDATE, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+                <input type="text" class="form-control" th:value="${#temporals.format(memberdto?.modDATE, 'yyyy/MM/dd HH:mm:ss')}" readonly>
             </div>
 
         </form>
@@ -60,6 +60,7 @@
         <button type="button" class="btn btn-danger removeBtn">삭제</button>
 
         <script th:inline="javascript">
+            var actionForm = $("form");
             $(".modifyBtn").click(function() {
                 if(!confirm("수정하시겠습니까?")){
                     return ;
@@ -70,6 +71,17 @@
 
                 actionForm.submit()
             });
+
+            $(".listBtn").click(function() {
+            //목록 보기로 이동
+            actionForm
+                .attr("action", "/login/myinfo")
+                .attr("method","get");
+
+            actionForm.submit();
+            })
+
+
         </script>
     </th:block>
 </th:block>

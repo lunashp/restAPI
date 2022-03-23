@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 //@AllArgsConstructor
-@Builder
+//@Builder
 public class Member extends BaseEntity {
     @Id
     private String memberNICKNAME;
@@ -32,7 +32,7 @@ public class Member extends BaseEntity {
     private String memberADDRESS;
 
 
-//    @Builder
+    @Builder
     public Member(String memberADDRESS, String memberEMAIL, String memberGENDER, String memberNAME, String memberNICKNAME, String memberPHONE, String memberPW) {
         this.memberADDRESS = memberADDRESS;
         this.memberEMAIL = memberEMAIL;

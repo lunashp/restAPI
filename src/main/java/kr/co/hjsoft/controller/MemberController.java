@@ -3,6 +3,7 @@ package kr.co.hjsoft.controller;
 import kr.co.hjsoft.dto.BoardDTO;
 import kr.co.hjsoft.dto.MemberDTO;
 import kr.co.hjsoft.dto.PageRequestDTO;
+import kr.co.hjsoft.service.MemberService;
 import kr.co.hjsoft.service.MemberServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class MemberController {
     private MemberServiceImpl memberService;
+    private MemberService memberservice2;
 
     @GetMapping("/login/signup")
     public String dispSignup(MemberDTO memberdto) {
@@ -81,15 +83,24 @@ public class MemberController {
         return "/login/admin";
     }
 
+
+//    @GetMapping({"read", "modify"})
+//    //ModelAttribute를 작성한 파라미터는 아무런 작업을 하지 않아도 뷰로
+//    //전달 된다.
+//    public void read(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, String memberNICKNAME, Model model){
+//        MemberDTO memberdto = memberService.get(memberNICKNAME);
+//        model.addAttribute("memberdto", memberdto);
+//    }
+
     // 정보 수정 페이지
     @GetMapping("/login/modify")
     public String modify() {
         return "/login/modify";
     }
 
-    @PostMapping("modify")
+    @PostMapping("/login/modify")
     public String modify(MemberDTO memberdto, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, RedirectAttributes rattr){
-        memberService.modify(memberdto);
+        memberservice2.modify(memberdto);
         rattr.addAttribute("memberNICKNAME", memberdto.getMemberNICKNAME());
         return "redirect:/login/myinfo";
     }
