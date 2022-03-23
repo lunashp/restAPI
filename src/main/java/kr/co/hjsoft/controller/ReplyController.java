@@ -21,12 +21,14 @@ public class ReplyController {
     @GetMapping(value = "/board/{boardNUMBER}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ReplyDTO>> getListByBoard(@PathVariable("boardNUMBER") Long boardNUMBER ){
         log.info("boardNUMBER: " + boardNUMBER);
+
         return new ResponseEntity<>(replyService.getList(boardNUMBER), HttpStatus.OK);
     }
 
     @PostMapping("")
     public ResponseEntity<Long> register(@RequestBody ReplyDTO replyDTO){
         log.info(replyDTO);
+        log.info("replyNUMBER" + replyDTO.getReplyNUMBER());
         Long replyNUMBER = replyService.register(replyDTO);
         return new ResponseEntity<>(replyNUMBER, HttpStatus.OK);
     }
@@ -37,6 +39,13 @@ public class ReplyController {
         replyService.remove(replyNUMBER);
         return new ResponseEntity("success", HttpStatus.OK);
     }
+
+//    @PostMapping("/remove?{replyNUMBER}")
+//    public ResponseEntity<String> remove(@PathVariable("replyNUMBER") Long replyNUMBER){
+//        log.info("replyNUMBER:" + replyNUMBER );
+//        replyService.remove(replyNUMBER);
+//        return new ResponseEntity("success", HttpStatus.OK);
+//    }
 
 
     @PutMapping("/{replyNUMBER}")

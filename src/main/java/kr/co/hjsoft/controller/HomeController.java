@@ -23,6 +23,10 @@ public class HomeController {
     public String login(){
         return "/login/index";
     }
+    @GetMapping("login/myinfo")
+    public String myinfo(){
+        return "/login/myinfo";
+    }
     @GetMapping("board/member")
     public String member(){
         return "/login/myinfo";

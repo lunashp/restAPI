@@ -17,7 +17,6 @@ public class BoardDTO {
  private int boardREADCNT;
 
  private String boardNICKNAME;
-// private String memberNICKNAME;
 
  //작성된 날짜와 수정된 날짜
  private LocalDateTime regDATE;

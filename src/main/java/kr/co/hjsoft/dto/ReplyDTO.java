@@ -1,9 +1,6 @@
 package kr.co.hjsoft.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -11,16 +8,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@ToString
 public class ReplyDTO {
 
     private Long replyNUMBER;
-    private  String boardNICKNAME;
-    private  String replyCONTENT;
+    private String replyCONTENT;
 
-//    private  String replySERCERET;
-//    private  Long replyPASSWORD;
-
+    private String memberNICKNAME;
     private Long boardNUMBER;
+
     private LocalDateTime regDATE;
     private LocalDateTime modDATE;
 }

@@ -11,25 +11,21 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString(exclude = "board")
+@ToString(exclude = {"board","replywriter"})
 public class Reply extends BaseEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long replyNUMBER;
 
     @Column(length = 300, nullable = false)
     private  String replyCONTENT;
-//
-//    @Column(length = 3, nullable = false)
-//    private  String replySERCERET;
-//
-//    @Column(length = 4, nullable = false)
-//    private  Long replyPASSWORD;
 
     @Column
-    private String boardNICKNAME;
+    private String memberNICKNAME;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member replywriter;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Board board;

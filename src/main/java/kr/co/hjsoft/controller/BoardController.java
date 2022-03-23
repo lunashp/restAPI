@@ -29,7 +29,7 @@ public class BoardController {
     @PostMapping("register")
     public String register(BoardDTO dto, RedirectAttributes rattr){
         Long boardNUMBER = boardService.register(dto);
-        rattr.addFlashAttribute("msg", boardNUMBER +" 등록");
+        rattr.addFlashAttribute("msg", "글이 등록 되었습니다.");
         return "redirect:/board/board";
     }
 
@@ -45,7 +45,7 @@ public class BoardController {
     public String remove(Long boardNUMBER, RedirectAttributes rattr){
         boardService.removeWithReplies(boardNUMBER);
         //출력할 메시지 저장
-        rattr.addFlashAttribute("msg",boardNUMBER + "삭제");
+        rattr.addFlashAttribute("msg","글이 삭제 되었습니다.");
         return "redirect:/board/board";
     }
 

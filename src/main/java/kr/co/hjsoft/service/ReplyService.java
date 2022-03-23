@@ -1,7 +1,9 @@
 package kr.co.hjsoft.service;
 
+import kr.co.hjsoft.dto.BoardDTO;
 import kr.co.hjsoft.dto.ReplyDTO;
 import kr.co.hjsoft.entity.Board;
+import kr.co.hjsoft.entity.Member;
 import kr.co.hjsoft.entity.Reply;
 
 import java.util.List;
@@ -20,11 +22,12 @@ public interface ReplyService {
     //ReplyDTO 를 Reply Entity로 변환해주는 메서드
     default Reply dtoToEntity(ReplyDTO replyDTO){
         Board borad = Board.builder().boardNUMBER(replyDTO.getBoardNUMBER()).build();
-
+        Member member = Member.builder().memberNICKNAME(replyDTO.getMemberNICKNAME()).build();
         Reply reply = Reply.builder()
                 .replyNUMBER(replyDTO.getReplyNUMBER())
                 .replyCONTENT(replyDTO.getReplyCONTENT())
-                .boardNICKNAME(replyDTO.getBoardNICKNAME())
+                .replywriter(member)
+                .memberNICKNAME(replyDTO.getMemberNICKNAME())
                 .board(borad)
                 .build();
         return reply;
@@ -35,7 +38,7 @@ public interface ReplyService {
         ReplyDTO replyDTO = ReplyDTO.builder()
                 .replyNUMBER(reply.getReplyNUMBER())
                 .replyCONTENT(reply.getReplyCONTENT())
-                .boardNICKNAME(reply.getBoardNICKNAME())
+                .memberNICKNAME(reply.getMemberNICKNAME())
                 .regDATE(reply.getRegDate())
                 .modDATE(reply.getModDate())
                 .build();
