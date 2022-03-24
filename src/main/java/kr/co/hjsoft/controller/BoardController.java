@@ -3,6 +3,7 @@ package kr.co.hjsoft.controller;
 
 import kr.co.hjsoft.dto.BoardDTO;
 import kr.co.hjsoft.dto.PageRequestDTO;
+import kr.co.hjsoft.repository.BoardRepository;
 import kr.co.hjsoft.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -21,7 +22,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/board/")
 public class BoardController {
     private final BoardService boardService;
-
     @GetMapping ("register")
     public void register(){
 
@@ -29,7 +29,7 @@ public class BoardController {
     @PostMapping("register")
     public String register(BoardDTO dto, RedirectAttributes rattr){
         Long boardNUMBER = boardService.register(dto);
-        rattr.addFlashAttribute("msg", boardNUMBER +" 등록");
+        rattr.addFlashAttribute("msg", "글이 등록 되었습니다.");
         return "redirect:/board/board";
     }
 
@@ -45,7 +45,7 @@ public class BoardController {
     public String remove(Long boardNUMBER, RedirectAttributes rattr){
         boardService.removeWithReplies(boardNUMBER);
         //출력할 메시지 저장
-        rattr.addFlashAttribute("msg",boardNUMBER + "삭제");
+        rattr.addFlashAttribute("msg","글이 삭제 되었습니다.");
         return "redirect:/board/board";
     }
 

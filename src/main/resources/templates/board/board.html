@@ -49,10 +49,10 @@
             <!-- 출력하는 열의 제목 -->
             <thead>
             <tr>
-                <th scope="col">no.</th>
-                <th scope="col">Title</th>
-                <th scope="col">Writer</th>
-                <th scope="col">Regdate</th>
+
+                <th scope="col">글 제목</th>
+                <th scope="col">글쓴이</th>
+                <th scope="col">날짜</th>
             </tr>
             </thead>
             <tbody>
@@ -60,15 +60,14 @@
                 <!-- 글 번호 출력 -->
                 <th scope="row">
                     <!-- 상세보기 링크 -->
+                    <!-- 제목 과 댓글 수 를 출력 -->
                     <a th:href="@{/board/read(boardNUMBER = ${dto.boardNUMBER},
                     page= ${result.page},
                     type=${pageRequestDTO.type},
                     keyword = ${pageRequestDTO.keyword})}">
-                        [[${dto.boardNUMBER}]]
+                        [[${dto.boardTITLE}]] ----------------  [<b th:text="${dto.replyCount}"></b>]
                     </a>
                 </th>
-                <!-- 제목 과 댓글 수 를 출력 -->
-                <td>[[${dto.boardTITLE}]] ----------------  [<b th:text="${dto.replyCount}"></b>]</td>
 
                 <td>[[${dto.boardNICKNAME}]] </td>
                 <td>[[${#temporals.format(dto.regDATE, 'yyyy/MM/dd')}]]</td>

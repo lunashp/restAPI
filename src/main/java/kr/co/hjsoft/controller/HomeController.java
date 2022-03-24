@@ -15,13 +15,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
     private final BoardService boardService;
     private final ApiService apiService;
-    @GetMapping("/")
+    @GetMapping({"/", "/board/list"})
     public String index(){
         return "/board/list";
     }
     @GetMapping("board/login")
     public String login(){
         return "/login/index";
+    }
+    @GetMapping("login/myinfo")
+    public String myinfo(){
+        return "/login/myinfo";
     }
     @GetMapping("board/member")
     public String member(){

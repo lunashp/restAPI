@@ -14,22 +14,22 @@ public class BookingTest {
     @Autowired
     private BoardRepository boardRepository;
 
-//    @Test
+    @Test
     public void insertboard(){
         IntStream.rangeClosed(1,100).forEach(i -> {
-            Member member = Member.builder().memberNICKNAME("효재").build();
+            Member member = Member.builder().memberNICKNAME("www").build();
             Board board = Board.builder()
                     .boardTITLE("title" + i)
                     .boardCONTENT("content" + i)
                     .writer(member)
-                    .boardNICKNAME("효재")
+                    .boardNICKNAME("www")
                     .build();
 
             boardRepository.save(board);
         });
     }
 
-    @Test
+//    @Test
     public  void deleteboard(){
         boardRepository.deleteAll();
     }
