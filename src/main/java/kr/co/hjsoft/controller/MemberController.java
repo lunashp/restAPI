@@ -1,25 +1,20 @@
 package kr.co.hjsoft.controller;
 
-import kr.co.hjsoft.dto.BoardDTO;
 import kr.co.hjsoft.dto.MemberDTO;
 import kr.co.hjsoft.dto.PageRequestDTO;
-import kr.co.hjsoft.entity.Member;
 import kr.co.hjsoft.repository.MemberRepository;
 import kr.co.hjsoft.service.MemberService;
 import kr.co.hjsoft.service.MemberServiceImpl;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Map;
-import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
@@ -90,31 +85,17 @@ public class MemberController {
     }
 
 
-//    @GetMapping({"read", "modify"})
-//    //ModelAttribute를 작성한 파라미터는 아무런 작업을 하지 않아도 뷰로
-//    //전달 된다.
-//    public void read(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, String memberNICKNAME, Model model){
-//        MemberDTO memberdto = memberService.get(memberNICKNAME);
-//        model.addAttribute("memberdto", memberdto);
-//    }
-
-    // 정보 수정 페이지
-//    @GetMapping("/login/modify")
-//        public void modify(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, String memberEMAIL, Model model){
-//        Optional<Member> memberWrapper = memberRepository.findBymemberEMAIL(memberEMAIL);
-//        System.out.println(memberWrapper.toString());
-//        Member member = memberWrapper.get();
-//        model.addAttribute("memberdto", member);
-//    }
     @GetMapping("/login/modify")
-    public String modify(){
-        return "/login/modify";
+    public void dispModify(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Principal principal, Model model){
+        MemberDTO memberdto = memberservice2.getmember(principal.getName());
+        model.addAttribute("memberdto", memberdto);
     }
+
     @PostMapping("/login/modify")
     public String modify(MemberDTO memberdto, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, RedirectAttributes rattr){
         memberservice2.modify(memberdto);
         rattr.addAttribute("memberEAMIL", memberdto.getMemberEMAIL());
-        return "redirect:/login/info";
+        return "redirect:/login/modify";
     }
 
 

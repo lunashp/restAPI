@@ -47,16 +47,4 @@ public class MemberDTO implements Serializable {
                 .build();
     }
 }
-//
-//    @Builder
-//    public MemberDTO(String memberADDRESS, String memberEMAIL, String memberGENDER, String memberNAME, String memberNICKNAME, String memberPHONE, String memberPW) {
-//        this.memberADDRESS = memberADDRESS;
-//        this.memberEMAIL = memberEMAIL;
-//        this.memberGENDER = memberGENDER;
-//        this.memberNAME = memberNAME;
-//        this.memberNICKNAME = memberNICKNAME;
-//        this.memberPHONE = memberPHONE;
-//        this.memberPW = memberPW;
-//
-//    }
-//}
+

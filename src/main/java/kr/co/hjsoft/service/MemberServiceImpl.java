@@ -22,7 +22,7 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 
-public class MemberServiceImpl implements UserDetailsService, MemberService{
+public class MemberServiceImpl implements UserDetailsService, MemberService {
 
     private final MemberRepository memberRepository;
 
@@ -64,10 +64,9 @@ public class MemberServiceImpl implements UserDetailsService, MemberService{
     }
 
 
-
     @Transactional
     @Override
-    public void modify(MemberDTO memberdto)  {
+    public void modify(MemberDTO memberdto) {
         System.out.println(memberdto);
         Optional<Member> member = memberRepository.findBymemberEMAIL(memberdto.getMemberEMAIL());
         if (member.isPresent()) {
@@ -81,10 +80,18 @@ public class MemberServiceImpl implements UserDetailsService, MemberService{
         }
     }
 
+
     @Transactional
     @Override
     public void delete(String memberEMAIL) {
         memberRepository.deleteBymemberEMAIL(memberEMAIL);
+    }
+
+    @Override
+    public MemberDTO getmember(String memberEMAIL) {
+        Object member = memberRepository.getMemberNickname(memberEMAIL);
+
+        return entityToDTO((Member) member);
     }
 
 }
