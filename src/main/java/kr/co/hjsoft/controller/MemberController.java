@@ -48,11 +48,6 @@ public class MemberController {
         return "/login/login";
     }
 
-//    @GetMapping("/login/login")
-//    public String displogin() {
-//        return "/login/login";
-//    }
-
     @GetMapping("/login/login")
     public String login(@RequestParam(value = "error", required = false)String error,
                         @RequestParam(value = "exception", required = false)String exception,
@@ -61,10 +56,6 @@ public class MemberController {
         model.addAttribute("exception", exception);
         return "/login/login";
     }
-
-
-
-
 
     // 로그인 결과 페이지
     @GetMapping("/login/login/result")
@@ -109,7 +100,6 @@ public class MemberController {
         rattr.addAttribute("memberEAMIL", memberdto.getMemberEMAIL());
         return "redirect:/login/modify";
     }
-
 
     // 회원 탈퇴 페이지
     @GetMapping("/login/delete")
