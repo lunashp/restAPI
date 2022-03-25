@@ -96,6 +96,14 @@ public class MemberServiceImpl implements UserDetailsService, MemberService {
         return entityToDTO((Member) member);
     }
 
+    @Override
+    public int emailCheck(String memberEMAIL) {
+        int cnt = memberRepository.emailCheck(memberEMAIL);
+
+        return cnt;
+    }
+
+
 }
 
 
