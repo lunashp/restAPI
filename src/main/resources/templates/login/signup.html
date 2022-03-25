@@ -2,49 +2,94 @@
 <html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/layout/basic:: setContent(~{this::content} )}">
     <th:block th:fragment="content">
-<head>
-    <meta charset="UTF-8">
+        <head>
+            <meta charset="UTF-8">
 
-    <title>회원가입</title>
-</head>
-<body>
-<h1>회원 가입</h1>
-<hr>
+            <title>회원가입</title>
+        </head>
+        <body>
+        <h1>회원 가입</h1>
+        <hr>
 
-<form th:action="@{/login/signup}" method="post" modelAttribute="memberdto">
-    <div>
-        <input type="text" name="memberNAME" th:value="${memberdto?.memberNAME}" placeholder="이름을 입력해주세요.">
-        <span th:text="${valid_memberNAME}"></span>
-    </div>
-    <div>
-        <input type="text" name="memberGENDER" th:value="${memberdto?.memberGENDER}" placeholder="성별을 입력해주세요.">
-        <span th:text="${valid_memberGENDER}"></span>
-    </div>
-    <div>
-        <input type="text" name="memberNICKNAME" th:value="${memberdto?.memberNICKNAME}" placeholder="별명을 입력해주세요.">
-        <span th:text="${valid_memberNICKNAME}"></span>
-    </div>
-    <div>
-        <input type="email" name="memberEMAIL" th:value="${memberdto?.memberEMAIL}" placeholder="이메일을 입력해주세요.">
-        <span th:text="${valid_memberEMAIL}"></span>
-    </div>
-    <div>
-        <input type="password" name="memberPW" th:value="${memberdto?.memberPW}" placeholder="비밀번호를 입력해주세요.">
-        <span th:text="${valid_memberPW}"></span>
-    </div>
-    <div>
-        <input type="text" name="memberADDRESS" th:value="${memberdto?.memberADDRESS}" placeholder="주소를 입력해주세요.">
-        <span th:text="${valid_memberADDRESS}"></span>
-    </div>
-    <div>
-        <input type="text" name="memberPHONE" th:value="${memberdto?.memberPHONE}" placeholder="번호를 입력해주세요.">
-        <span th:text="${valid_memberPHONE}"></span>
-    </div>
+        <form th:action="@{/login/signup}" method="post" modelAttribute="memberdto">
+            <div class="form-group">
+                <label>이름</label>
+                <input type="text" class="form-control" name="memberNAME" th:value="${memberdto?.memberNAME}" placeholder="이름을 입력해주세요.">
+                <span th:text="${valid_memberNAME}"></span>
+            </div>
 
+            <div class="form-group">
+                <label>성별</label><p>
+                <input type="radio" name="memberGENDER" value="여" checked>
+                <span>여자</span>
+                <input type="radio" name="memberGENDER" value="남">
+                <span>남자</span>
+            </p>
+            </div>
 
-    <button>등록</button>
-</form>
-</body>
+            <div class="form-group">
+                <label>별명</label>
+                <input type="text" class="form-control" name="memberNICKNAME" th:value="${memberdto?.memberNICKNAME}" placeholder="별명을 입력해주세요.">
+                <span th:text="${valid_memberNICKNAME}"></span>
+            </div>
+
+            <div class="form-group">
+                <label>이메일</label>
+                <input type="email" class="form-control" name="memberEMAIL" th:value="${memberdto?.memberEMAIL}" placeholder="이메일을 입력해주세요.">
+                <span th:text="${valid_memberEMAIL}"></span>
+            </div>
+
+            <div class="form-group">
+                <label>비밀번호</label>
+                <input type="password" class="form-control" name="memberPW" th:value="${memberdto?.memberPW}" placeholder="비밀번호를 입력해주세요.">
+                <span th:text="${valid_memberPW}"></span>
+            </div>
+
+<!--            <div class="form-group">-->
+<!--                <label>지역</label>-->
+<!--                <input type="text" class="form-control" name="memberADDRESS" th:value="${memberdto?.memberADDRESS}" placeholder="지역을 입력해주세요.">-->
+<!--                <span th:text="${valid_memberADDRESS}"></span>-->
+<!--            </div>-->
+
+            <div class="form-group">
+                <lable>주소</lable><p>
+
+                <input type="text" name="memberADDRESS" class="postcodify_postcode5" value="" />
+                <button type="button" id="postcodify_search_button">검색</button><br />
+                <input type="text" name="memberADDRESS" class="postcodify_address" value="" /><br />
+            </p>
+            </div>
+
+            <div class="form-group">
+                <label>전화번호</label>
+                <input type="text" class="form-control" name="memberPHONE" th:value="${memberdto?.memberPHONE}" placeholder="(-없이)01012345678)">
+                <span th:text="${valid_memberPHONE}"></span>
+            </div>
+
+            <!-- 주소 API 스크립트 -->
+            <!-- jQuery와 Postcodify를 로딩한다 -->
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+            <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+
+            <!--            &lt;!&ndash; "검색" 단추를 누르면 팝업 레이어가 열리도록 설정한다 &ndash;&gt;-->
+            <script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
+
+            <button type="submit" class="btn btn-primary">가입</button>
+
+        </form>
+
+        </body>
+        <script th:inline="javascript">
+
+            var memberGENDER = document.getElementsByName('memberGENDER');
+            var genderChoice; // 여기에 선택된 radio 버튼의 값이 담기게 된다.
+            for (var i = 0; i < memberGENDER.length; i++) {
+                if (memberGENDER[i].checked) {
+                    genderChoice = memberGENDER[i].value;
+                }
+            }
+
+        </script>
     </th:block>
 </th:block>
 </html>

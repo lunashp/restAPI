@@ -14,7 +14,7 @@ public class MemberTest {
     @Autowired
     private MemberRepository memberRepository;
 
-    //@Test
+    @Test
     public void insertMember() {
         for (int i = 1; i <= 3; i++) {
             Member member = Member.builder()
@@ -31,7 +31,7 @@ public class MemberTest {
         }
     }
 
-    @Test
+    //@Test
     public void updateMember() {
         MemberDTO memberdto = MemberDTO.builder()
                 .memberADDRESS("서울")
