@@ -40,13 +40,6 @@ public class ReplyController {
         return new ResponseEntity("success", HttpStatus.OK);
     }
 
-//    @PostMapping("/remove?{replyNUMBER}")
-//    public ResponseEntity<String> remove(@PathVariable("replyNUMBER") Long replyNUMBER){
-//        log.info("replyNUMBER:" + replyNUMBER );
-//        replyService.remove(replyNUMBER);
-//        return new ResponseEntity("success", HttpStatus.OK);
-//    }
-
 
     @PutMapping("/{replyNUMBER}")
     public ResponseEntity<String> modify(@RequestBody ReplyDTO replyDTO) {
