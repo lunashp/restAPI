@@ -151,10 +151,11 @@
 
                 //댓글 작성 버튼을 누를 때
                 $(".addReply").click(function(e){
+                    var memberNICKNAME = [[${memberDTO.memberNICKNAME}]];
                     modal.modal('show');
                     //댓글 입력할 부분을 초기화
                     $('input[name="replyCONTENT"]').val('');
-                    $('input[name="memberNICKNAME"]').val('');
+                    $('input[name="memberNICKNAME"]').val(memberNICKNAME);
                     //모든 버튼을 숨기기
                     $('.modal-footer .btn').hide();
                     //필요한 버튼만 출력
