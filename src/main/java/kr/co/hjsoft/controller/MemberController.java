@@ -48,10 +48,22 @@ public class MemberController {
         return "/login/login";
     }
 
+//    @GetMapping("/login/login")
+//    public String displogin() {
+//        return "/login/login";
+//    }
+
     @GetMapping("/login/login")
-    public String displogin() {
+    public String login(@RequestParam(value = "error", required = false)String error,
+                        @RequestParam(value = "exception", required = false)String exception,
+                        Model model) {
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
         return "/login/login";
     }
+
+
+
 
 
     // 로그인 결과 페이지

@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 //@RequiredArgsConstructor
@@ -20,7 +22,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private MemberServiceImpl memberService;
-
+    private final AuthenticationFailureHandler customFailurHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -58,8 +60,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and() // 로그인 설정
                 .formLogin()
                 .loginPage("/login/login")
+                .loginProcessingUrl("/login/login")
+                .failureHandler(customFailurHandler)
                 .defaultSuccessUrl("/login/login/result")
-                .permitAll()
+//                .permitAll()
                 .and() // 로그아웃 설정
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/login/logout"))
