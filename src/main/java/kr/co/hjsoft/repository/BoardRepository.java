@@ -30,5 +30,7 @@ public interface BoardRepository extends JpaRepository<Board, Long>, SearchBoard
     @Query("select b, w, count(r) from Board b left join b.writer w left outer join Reply r on r.board = b where b.boardNUMBER = :boardNUMBER")
     Object getBoardByBno(@Param("boardNUMBER") Long boardNUMBER);
 
-
+    //로그인 한 사람의 닉네임을 가져오는 메서드
+    @Query("select m from Member m where m.memberEMAIL = :memberEMAIL")
+    Object getMemberNickname(@Param("memberEMAIL") String memberEMAIL);
 }

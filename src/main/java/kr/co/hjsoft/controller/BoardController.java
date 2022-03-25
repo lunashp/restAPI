@@ -2,18 +2,17 @@ package kr.co.hjsoft.controller;
 
 
 import kr.co.hjsoft.dto.BoardDTO;
+import kr.co.hjsoft.dto.MemberDTO;
 import kr.co.hjsoft.dto.PageRequestDTO;
-import kr.co.hjsoft.repository.BoardRepository;
 import kr.co.hjsoft.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.security.Principal;
 
 @Controller
 @Log4j2
@@ -23,8 +22,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class BoardController {
     private final BoardService boardService;
     @GetMapping ("register")
-    public void register(){
-
+    public void register(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Principal principal, Model model){
+        MemberDTO dto = boardService.getmember(principal.getName());
+        model.addAttribute("dto",dto);
     }
     @PostMapping("register")
     public String register(BoardDTO dto, RedirectAttributes rattr){
@@ -36,9 +36,11 @@ public class BoardController {
     @GetMapping({"read", "modify"})
     //ModelAttribute를 작성한 파라미터는 아무런 작업을 하지 않아도 뷰로
     //전달 된다.
-    public void read(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Long boardNUMBER, Model model){
+    public void read(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Long boardNUMBER,Principal principal ,Model model){
         BoardDTO dto = boardService.get(boardNUMBER);
         model.addAttribute("dto", dto);
+        MemberDTO memberDTO = boardService.getmember(principal.getName());
+        model.addAttribute("memberDTO",memberDTO);
     }
 
     @PostMapping("remove")

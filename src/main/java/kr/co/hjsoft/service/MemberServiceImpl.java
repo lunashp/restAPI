@@ -61,6 +61,8 @@ public class MemberServiceImpl implements UserDetailsService, MemberService {
             authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
         }
         return new User(member.getMemberEMAIL(), member.getMemberPW(), authorities);
+
+
     }
 
 

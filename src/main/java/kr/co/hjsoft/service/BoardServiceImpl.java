@@ -1,6 +1,7 @@
 package kr.co.hjsoft.service;
 
 import kr.co.hjsoft.dto.BoardDTO;
+import kr.co.hjsoft.dto.MemberDTO;
 import kr.co.hjsoft.dto.PageRequestDTO;
 import kr.co.hjsoft.dto.PageResultDTO;
 import kr.co.hjsoft.entity.Board;
@@ -54,6 +55,13 @@ public class BoardServiceImpl implements BoardService{
         Object [] ar = (Object []) result;
         return entityToDTO((Board)ar[0], (Member)ar[1], (Long)ar[2]);
 
+    }
+
+    @Override
+    public MemberDTO getmember(String memberEMAIL) {
+        Object member = boardRepository.getMemberNickname(memberEMAIL);
+
+        return memberentityToDTO((Member) member);
     }
 
     private final ReplyRepository replyRepository;
