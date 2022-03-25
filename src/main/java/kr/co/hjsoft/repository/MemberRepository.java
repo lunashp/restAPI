@@ -14,4 +14,7 @@ public interface MemberRepository extends JpaRepository<Member, String>, SearchB
     //로그인한 사람의 닉네임을 가져오는 메소드
     @Query("select m from Member m where m.memberEMAIL = :memberEMAIL")
     Object getMemberNickname(@Param("memberEMAIL") String memberEMAIL);
+
+    @Query("select count(m) from Member m where m.memberEMAIL = :memberEMAIL")
+    int emailCheck(@Param("memberEMAIL") String memberEMAIL);
 }

@@ -2,10 +2,12 @@
 <html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/layout/basic:: setContent(~{this::content} )}">
     <th:block th:fragment="content">
-        <head>
-            <meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
 
             <title>회원가입</title>
+            <meta name="_csrf" th:content="${_csrf.token}"/>
+            <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
         </head>
         <body>
         <h1>회원 가입</h1>
@@ -35,7 +37,7 @@
 
             <div class="form-group">
                 <label>이메일</label>
-                <input type="email" class="form-control" name="memberEMAIL" th:value="${memberdto?.memberEMAIL}" placeholder="이메일을 입력해주세요.">
+                <input type="email" class="form-control" id="memberEMAIL" name="memberEMAIL" th:value="${memberdto?.memberEMAIL}" placeholder="이메일을 입력해주세요."> <button type="button" onclick="checkId()">중복확인</button>
                 <span th:text="${valid_memberEMAIL}"></span>
             </div>
 
@@ -71,8 +73,23 @@
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
             <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 
-            <!--            &lt;!&ndash; "검색" 단추를 누르면 팝업 레이어가 열리도록 설정한다 &ndash;&gt;-->
-            <script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
+            <!--"검색" 단추를 누르면 팝업 레이어가 열리도록 설정한다-->
+            <script> $(function() {
+                var memberEMAIL = $('#memberEMAIL').val(); //memberEMAIL값이 "memberEMAIL"인 입력란의 값을 저장
+                var token = $("meta[name='_csrf']").attr("content");
+                var header = $("meta[name='_csrf_header']").attr("content");
+                var name = $("#userName").val();
+
+                var jsonData = {
+                    "name" : name
+                }
+                beforeSend : function(xhr)
+                {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                    xhr.setRequestHeader(header, token);
+                },
+                $("#postcodify_search_button").postcodifyPopUp(); });
+
+            </script>
 
             <button type="submit" class="btn btn-primary">가입</button>
 
@@ -89,6 +106,38 @@
                 }
             }
 
+        </script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript">
+            function checkId(){
+                var memberEMAIL = $('#memberEMAIL').val(); //memberEMAIL값이 "memberEMAIL"인 입력란의 값을 저장
+                var token = $("meta[name='_csrf']").attr("content");
+                var header = $("meta[name='_csrf_header']").attr("content");
+                var name = $("#userName").val();
+
+                var jsonData = {
+                    "name" : name
+                }
+                $.ajax({
+                    url:'/signup/emailCheck', //Controller에서 인식할 주소
+                    type:'post', //POST 방식으로 전달
+                    data:{memberEMAIL:memberEMAIL},
+                    beforeSend : function(xhr)
+                    {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                        xhr.setRequestHeader(header, token);
+                    },
+                    success:function(cnt){
+                        if(cnt == 0){ //cnt가 0일 경우 -> 사용 가능한 아이디
+                            alert("사용 가능한 아이디 입니다.")
+                        } else { // cnt가 0이 아닌 경우 -> 이미 존재하는 아이디
+                            alert("사용 불가능한 아이디 입니다.")
+                        }
+                    },
+                    error:function(){
+                        alert("에러입니다");
+                    }
+                });
+            };
         </script>
     </th:block>
 </th:block>

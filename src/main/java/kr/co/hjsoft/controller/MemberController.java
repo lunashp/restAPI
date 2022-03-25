@@ -6,6 +6,8 @@ import kr.co.hjsoft.repository.MemberRepository;
 import kr.co.hjsoft.service.MemberService;
 import kr.co.hjsoft.service.MemberServiceImpl;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -15,9 +17,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @Controller
 @AllArgsConstructor
+@Log4j2
 //@RequiredArgsConstructor
 public class MemberController {
     private MemberServiceImpl memberService;
@@ -46,6 +50,15 @@ public class MemberController {
 
         memberService.joinUser(memberdto);
         return "/login/login";
+    }
+    @PostMapping("/signup/emailCheck")
+    @ResponseBody
+    public int emailCheck(@RequestParam("memberEMAIL") String memberEMAIL){
+        log.info("userEmailCheck 진입");
+        log.info("전달받은 email:" + memberEMAIL);
+        int cnt = memberservice2.emailCheck(memberEMAIL);
+        log.info("확인 결과 :" + cnt);
+        return cnt;
     }
 
     @GetMapping("/login/login")
