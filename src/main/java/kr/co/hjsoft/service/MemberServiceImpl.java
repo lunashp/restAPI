@@ -61,10 +61,7 @@ public class MemberServiceImpl implements UserDetailsService, MemberService {
             authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
         }
         return new User(member.getMemberEMAIL(), member.getMemberPW(), authorities);
-
-
     }
-
 
     @Transactional
     @Override
@@ -81,7 +78,6 @@ public class MemberServiceImpl implements UserDetailsService, MemberService {
             memberRepository.save(member.get());
         }
     }
-
 
     @Transactional
     @Override
@@ -103,7 +99,11 @@ public class MemberServiceImpl implements UserDetailsService, MemberService {
         return cnt;
     }
 
-
+    @Override
+    public int nicknameCheck(String memberNICKNAME) {
+        int cnt = memberRepository.nicknameCheck(memberNICKNAME);
+        return cnt;
+    }
 }
 
 

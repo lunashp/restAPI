@@ -17,4 +17,7 @@ public interface MemberRepository extends JpaRepository<Member, String>, SearchB
 
     @Query("select count(m) from Member m where m.memberEMAIL = :memberEMAIL")
     int emailCheck(@Param("memberEMAIL") String memberEMAIL);
+
+    @Query("select count(m) from Member m where m.memberNICKNAME = :memberNICKNAME")
+    int nicknameCheck(@Param("memberNICKNAME") String memberNICKNAME);
 }

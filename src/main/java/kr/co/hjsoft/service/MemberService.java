@@ -1,13 +1,7 @@
 package kr.co.hjsoft.service;
 
-import kr.co.hjsoft.dto.BoardDTO;
 import kr.co.hjsoft.dto.MemberDTO;
 import kr.co.hjsoft.entity.Member;
-import kr.co.hjsoft.repository.MemberRepository;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
-
 
 public interface MemberService {
 
@@ -22,6 +16,9 @@ public interface MemberService {
 
     //email 중복 확인
     public int emailCheck(String memberEMAIL);
+
+    //nickname 중복 확인
+    public int nicknameCheck(String memberNICKNAME);
 
 //    //Member Entity를 ReplyDTO로 변환해주는 메서드
     default MemberDTO entityToDTO(Member member){

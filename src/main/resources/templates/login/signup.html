@@ -4,11 +4,12 @@
     <th:block th:fragment="content">
         <head>
             <meta charset="UTF-8">
-
             <title>회원가입</title>
             <meta name="_csrf" th:content="${_csrf.token}"/>
             <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
             <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+            <!-- 주소 API 스크립트 -->
+            <!-- jQuery와 Postcodify를 로딩한다 -->
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
             <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
         </head>
@@ -34,7 +35,7 @@
 
             <div class="form-group">
                 <label>별명</label>
-                <input type="text" class="form-control" name="memberNICKNAME" th:value="${memberdto?.memberNICKNAME}" placeholder="별명을 입력해주세요.">
+                <input type="text" class="form-control" id="memberNICKNAME" name="memberNICKNAME" th:value="${memberdto?.memberNICKNAME}" placeholder="별명을 입력해주세요."> <button type="button" onclick="checkNickname()">중복확인</button>
                 <span th:text="${valid_memberNICKNAME}"></span>
             </div>
 
@@ -50,18 +51,12 @@
                 <span th:text="${valid_memberPW}"></span>
             </div>
 
-            <!--            <div class="form-group">-->
-            <!--                <label>지역</label>-->
-            <!--                <input type="text" class="form-control" name="memberADDRESS" th:value="${memberdto?.memberADDRESS}" placeholder="지역을 입력해주세요.">-->
-            <!--                <span th:text="${valid_memberADDRESS}"></span>-->
-            <!--            </div>-->
-
             <div class="form-group">
                 <lable>주소</lable><p>
 
-                <input type="text" name="memberADDRESS" class="postcodify_postcode5" value="" />
+                <input type="text" name="memberADDRESS" class="postcodify_postcode5" value="" readonly/>
                 <button type="button" id="postcodify_search_button">검색</button><br />
-                <input type="text" name="memberADDRESS" class="postcodify_address" value="" /><br />
+                <input type="text" name="memberADDRESS" class="postcodify_address" value="" readonly/><br />
             </p>
             </div>
 
@@ -71,17 +66,12 @@
                 <span th:text="${valid_memberPHONE}"></span>
             </div>
 
-            <!-- 주소 API 스크립트 -->
-            <!-- jQuery와 Postcodify를 로딩한다 -->
-
-
             <!--"검색" 단추를 누르면 팝업 레이어가 열리도록 설정한다-->
             <script> $(function() {$("#postcodify_search_button").postcodifyPopUp(); });</script>
 
             <button type="submit" class="btn btn-primary">가입</button>
 
         </form>
-
         </body>
 
         <script type="text/javascript">
@@ -92,6 +82,8 @@
                     genderChoice = memberGENDER[i].value;
                 }
             }
+
+            //email 중복검사
             function checkId(){
                 var memberEMAIL = $('#memberEMAIL').val(); //memberEMAIL값이 "memberEMAIL"인 입력란의 값을 저장
                 var token = $("meta[name='_csrf']").attr("content");
@@ -121,6 +113,38 @@
                     }
                 });
             };
+
+            //nickname 중복검사
+            function checkNickname(){
+                var memberNICKNAME = $('#memberNICKNAME').val(); //memberNICKNAME값이 "memberNICKNAME"인 입력란의 값을 저장
+                var token = $("meta[name='_csrf']").attr("content");
+                var header = $("meta[name='_csrf_header']").attr("content");
+                var name = $("#userName").val();
+
+                var jsonData = {
+                    "name" : name
+                }
+                $.ajax({
+                    url:'/signup/nicknameCheck', //Controller에서 인식할 주소
+                    type:'post', //POST 방식으로 전달
+                    data:{memberNICKNAME:memberNICKNAME},
+                    beforeSend : function(xhr)
+                    {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                        xhr.setRequestHeader(header, token);
+                    },
+                    success:function(cnt){
+                        if(cnt == 0){ //cnt가 0일 경우 -> 사용 가능한 아이디
+                            alert("사용 가능한 별명 입니다.")
+                        } else { // cnt가 0이 아닌 경우 -> 이미 존재하는 아이디
+                            alert("사용 불가능한 별명 입니다.")
+                        }
+                    },
+                    error:function(){
+                        alert("에러입니다");
+                    }
+                });
+            };
+
         </script>
     </th:block>
 </th:block>
