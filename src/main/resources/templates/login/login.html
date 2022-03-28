@@ -10,14 +10,18 @@
     <h1>로그인</h1>
     <hr>
 
+<!--    로그인 에러 발생 시 예외를 alert 로 띄워줌-->
     <div th:if="${param.error}">
         <p th:text="${exception}" class="alert alert-danger"></p>
     </div>
+
     <form th:action="@{/login/login}" method="post">
+        <!--    from에 hidden 타입으로 csrf 토큰 값을 넘겨줌-->
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
         <div class="form-group">
             <label>이메일</label>
+<!--            로그인 시 name의 애트리뷰트 값은 username 이어야 함-->
         <input type="text" class="form-control" name="username" placeholder="이메일 입력해주세요">
         </div>
 

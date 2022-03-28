@@ -7,6 +7,7 @@ import kr.co.hjsoft.service.MemberService;
 import kr.co.hjsoft.service.MemberServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -133,6 +134,7 @@ public class MemberController {
         memberservice2.delete(memberEMAIL);
         //출력할 메시지 저장
         rattr.addFlashAttribute("msg",memberEMAIL + "탈퇴");
+        SecurityContextHolder.clearContext(); //회원 탈퇴 시 로그아웃 처리
         return "redirect:/login/delete";
     }
 }
