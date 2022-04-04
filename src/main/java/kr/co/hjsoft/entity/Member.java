@@ -1,16 +1,28 @@
 package kr.co.hjsoft.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
+@Builder // builder를 사용할수 있게 합니다.
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member extends BaseEntity {
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "member") // 'member' 테이블과 매핑됨을 명시
+public class Member extends BaseEntity implements UserDetails {
     @Id
     private String memberNICKNAME;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(length = 200, nullable = false)
     private String memberPW;
 
@@ -29,23 +41,50 @@ public class Member extends BaseEntity {
     @Column(length = 600)
     private String memberADDRESS;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<String> roles = new ArrayList<>();
 
-    @Builder
-    public Member(String memberADDRESS, String memberEMAIL, String memberGENDER, String memberNAME, String memberNICKNAME, String memberPHONE, String memberPW) {
-        this.memberADDRESS = memberADDRESS;
-        this.memberEMAIL = memberEMAIL;
-        this.memberGENDER = memberGENDER;
-        this.memberNAME = memberNAME;
-        this.memberNICKNAME = memberNICKNAME;
-        this.memberPHONE = memberPHONE;
-        this.memberPW = memberPW;
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
-    //수정 메소드
-    public void changeName(String name){this.memberNAME = name;}
-    public void changePw(String pw){this.memberPW = pw;}
-    public void changeGender(String gender){this.memberGENDER = gender;}
-    public void changePhone(String phone){this.memberPHONE = phone;}
-    public void changeAddress(String address){this.memberADDRESS = address;}
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Override
+    public String getPassword() {
+        return this.memberPW;
+    }
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Override
+    public String getUsername() {
+        return this.memberEMAIL;
+    }
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
